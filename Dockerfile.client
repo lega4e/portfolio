@@ -1,0 +1,33 @@
+# Базовый образ для сборки
+FROM node:18-alpine AS build
+
+# Рабочая директория
+WORKDIR /app
+
+# Копируем зависимости
+COPY client/package.json client/package-lock.json ./
+RUN npm install
+
+# Копируем весь код клиента
+COPY client/ ./
+
+# Сборка приложения
+RUN npm run build
+
+# Базовый образ для запуска
+FROM node:18-alpine
+
+# Устанавливаем сервер для раздачи статики
+RUN npm install -g serve
+
+# Рабочая директория
+WORKDIR /app
+
+# Копируем собранные файлы из предыдущего этапа
+COPY --from=build /app/dist ./dist
+
+# Открываем порт
+EXPOSE 5000
+
+# Запускаем сервер для раздачи статики
+CMD ["serve", "-s", "dist", "-l", "5000"]

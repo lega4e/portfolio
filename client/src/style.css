@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Courier New", Courier, monospace;
+}
+
+body {
+  @apply bg-black text-white;
+}
+
+input, textarea {
+  @apply bg-black text-white border-gray-600 rounded-lg;
+  border-radius: 20px;
+  min-width: 200px;
+}
+
+textarea {
+  min-height: 100px;
+  min-width: 500px;
+  resize: none;
+}
+
+button {
+  border-radius: 20px;
+}
+
+.arrow-list li {
+  list-style: none;
+}
+
+.arrow-list li::before {
+  content: "→";
+  margin-right: 0.5em;
+}
