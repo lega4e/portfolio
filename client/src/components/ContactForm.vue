@@ -6,7 +6,8 @@ const email = ref('');
 const message = ref('');
 
 const submitForm = async () => {
-  const res = await fetch('http://localhost:3000/api/contact', {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  const res = await fetch(`${baseUrl}/api/contact`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name: name.value, email: email.value, message: message.value }),

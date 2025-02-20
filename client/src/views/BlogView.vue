@@ -13,7 +13,8 @@ interface Post {
 const posts = ref<Post[]>([]);
 
 onMounted(async () => {
-  const res = await fetch('http://localhost:3000/api/posts');
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  const res = await fetch(`${baseUrl}/api/posts`);
   posts.value = await res.json();
 });
 </script>
